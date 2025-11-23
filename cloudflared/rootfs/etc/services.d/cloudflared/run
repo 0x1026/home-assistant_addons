@@ -19,9 +19,13 @@ fi
 
 bashio::log.info "Starting Cloudflare Tunnel..."
 
-# Write token to a temporary file for security (avoids exposing in process list)
-echo -n "${tunnel_token}" > /tmp/cloudflared-token
-chmod 600 /tmp/cloudflared-token
+# Create token file with secure permissions from the start (avoids race condition)
+# Use /var/run which is typically more secure than /tmp
+TOKEN_FILE="/var/run/cloudflared-token"
+(umask 077; echo -n "${tunnel_token}" > "${TOKEN_FILE}")
+
+# Clean up token file on exit
+trap 'rm -f "${TOKEN_FILE}"' EXIT
 
 # Run cloudflared with token file
-exec cloudflared tunnel --no-autoupdate run --token-file /tmp/cloudflared-token
+exec cloudflared tunnel --no-autoupdate run --token-file "${TOKEN_FILE}"
