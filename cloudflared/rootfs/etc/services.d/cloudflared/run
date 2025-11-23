@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Start the cloudflared service
 # s6-overlay docs: https://github.com/just-containers/s6-overlay
@@ -21,4 +22,5 @@ bashio::log.info "Starting Cloudflare Tunnel..."
 
 # Pass the token via environment variable to avoid exposing it in the process list
 export TUNNEL_TOKEN="${tunnel_token}"
-exec cloudflared tunnel --no-autoupdate run
+cloudflared tunnel --no-autoupdate run
+exit 0

@@ -10,5 +10,5 @@ arch:
 init: false
 host_network: true
 schema:
-  tunnel_token: "str"
+  tunnel_token: password
 image: "ghcr.io/0x1026/{arch}-addon-cloudflared"
