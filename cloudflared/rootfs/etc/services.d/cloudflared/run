@@ -19,6 +19,5 @@ fi
 
 bashio::log.info "Starting Cloudflare Tunnel..."
 
-# Pass the token via environment variable to avoid exposing it in the process list
-export TUNNEL_TOKEN="${tunnel_token}"
-exec cloudflared tunnel --no-autoupdate run
+# Run cloudflared with the token passed via --token flag
+exec cloudflared tunnel --no-autoupdate run --token "${tunnel_token}"
