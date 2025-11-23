@@ -19,5 +19,9 @@ fi
 
 bashio::log.info "Starting Cloudflare Tunnel..."
 
-# Run cloudflared with the token passed via --token flag
-exec cloudflared tunnel --no-autoupdate run --token "${tunnel_token}"
+# Write token to a temporary file for security (avoids exposing in process list)
+echo -n "${tunnel_token}" > /tmp/cloudflared-token
+chmod 600 /tmp/cloudflared-token
+
+# Run cloudflared with token file
+exec cloudflared tunnel --no-autoupdate run --token-file /tmp/cloudflared-token
