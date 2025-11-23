@@ -5,18 +5,10 @@ slug: cloudflared
 description: Cloudflare Tunnel client (formerly Argo Tunnel)
 url: "https://github.com/0x1026/home-assistant_addons/tree/main/cloudflared"
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 init: false
 host_network: true
 schema:
   tunnel_token: "str"
 image: "ghcr.io/0x1026/{arch}-addon-cloudflared"
-healthcheck:
-  test: ["CMD", "pgrep", "cloudflared"]
-  interval: 30s
-  timeout: 10s
-  retries: 3
