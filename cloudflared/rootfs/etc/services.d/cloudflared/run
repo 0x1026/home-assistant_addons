@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start the cloudflared service
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# ==============================================================================
+
+# Declare variables
+declare tunnel_token
+
+# Get the 'tunnel_token' key from the user config options
+tunnel_token=$(bashio::config 'tunnel_token')
+
+# Check if tunnel token is provided
+if [[ -z "${tunnel_token}" ]]; then
+  bashio::log.fatal "No tunnel token configured!"
+  bashio::log.fatal "Please configure a tunnel token in the add-on configuration."
+  exit 1
+fi
+
+bashio::log.info "Starting Cloudflare Tunnel..."
+
+# Pass the token via environment variable to avoid exposing it in the process list
+export TUNNEL_TOKEN="${tunnel_token}"
+exec cloudflared tunnel --no-autoupdate run

@@ -1,0 +1,14 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: Cloudflared
+version: "1.0.0"
+slug: cloudflared
+description: Cloudflare Tunnel client (formerly Argo Tunnel)
+url: "https://github.com/0x1026/home-assistant_addons/tree/main/cloudflared"
+arch:
+  - aarch64
+  - amd64
+init: false
+host_network: true
+schema:
+  tunnel_token: "str"
+image: "ghcr.io/0x1026/{arch}-addon-cloudflared"

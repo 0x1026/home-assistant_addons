@@ -1,0 +1,4 @@
+configuration:
+  tunnel_token:
+    name: Tunnel Token
+    description: The Cloudflare Tunnel token from your Cloudflare Zero Trust dashboard.
