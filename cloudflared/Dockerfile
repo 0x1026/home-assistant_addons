@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 
 # Install cloudflared
 ARG BUILD_ARCH
+ARG CLOUDFLARED_VERSION="2025.11.1"
 RUN \
     case "${BUILD_ARCH}" in \
         amd64) ARCH="amd64" ;; \
@@ -13,7 +14,7 @@ RUN \
         i386) ARCH="386" ;; \
     esac \
     && curl -sSLf -o /usr/local/bin/cloudflared \
-        "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}" \
+        "https://github.com/cloudflare/cloudflared/releases/download/${CLOUDFLARED_VERSION}/cloudflared-linux-${ARCH}" \
     && chmod +x /usr/local/bin/cloudflared
 
 # Copy root filesystem
