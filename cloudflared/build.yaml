@@ -1,9 +1,0 @@
-# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:3.15"
-  amd64: "ghcr.io/home-assistant/amd64-base:3.15"
-labels:
-  org.opencontainers.image.title: "Home Assistant Add-on: Cloudflared"
-  org.opencontainers.image.description: "Cloudflare Tunnel client for Home Assistant"
-  org.opencontainers.image.source: "https://github.com/0x1026/home-assistant_addons"
-  org.opencontainers.image.licenses: "Apache License 2.0"
