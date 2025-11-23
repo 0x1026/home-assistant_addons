@@ -40,6 +40,10 @@ profile cloudflared flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/nameservice>
     #include <abstractions/ssl_certs>
 
+    # Capabilities
+    capability net_bind_service,
+    capability net_admin,
+
     # Receive signals from S6-Overlay
     signal (receive) peer=*_cloudflared,
 

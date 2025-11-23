@@ -12,8 +12,11 @@ arch:
   - i386
 init: false
 host_network: true
-options:
-  tunnel_token: ""
 schema:
   tunnel_token: "str"
 image: "ghcr.io/0x1026/{arch}-addon-cloudflared"
+healthcheck:
+  test: ["CMD", "pgrep", "cloudflared"]
+  interval: 30s
+  timeout: 10s
+  retries: 3

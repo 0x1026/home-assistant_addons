@@ -9,12 +9,13 @@ RUN \
         amd64) ARCH="amd64" ;; \
         aarch64) ARCH="arm64" ;; \
         armv7) ARCH="arm" ;; \
-        armhf) ARCH="arm" ;; \
+        armhf) ARCH="armhf" ;; \
         i386) ARCH="386" ;; \
     esac \
     && curl -sSLf -o /usr/local/bin/cloudflared \
         "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}" \
-    && chmod +x /usr/local/bin/cloudflared
+    && chmod +x /usr/local/bin/cloudflared \
+    && /usr/local/bin/cloudflared --version
 
 # Copy root filesystem
 COPY rootfs /

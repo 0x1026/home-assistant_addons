@@ -19,8 +19,6 @@ fi
 
 bashio::log.info "Starting Cloudflare Tunnel..."
 
-# Run cloudflared tunnel
-# Note: The token is passed via command line as this is the standard approach for
-# Cloudflare Tunnel quick tunnels. While visible in process list, the token is
-# time-limited and can be revoked from the Cloudflare dashboard.
-exec cloudflared tunnel --no-autoupdate run --token "${tunnel_token}"
+# Pass the token via environment variable to avoid exposing it in the process list
+export TUNNEL_TOKEN="${tunnel_token}"
+exec cloudflared tunnel --no-autoupdate run
