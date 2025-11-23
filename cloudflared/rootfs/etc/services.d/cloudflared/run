@@ -24,8 +24,8 @@ bashio::log.info "Starting Cloudflare Tunnel..."
 TOKEN_FILE="/var/run/cloudflared-token"
 (umask 077; echo -n "${tunnel_token}" > "${TOKEN_FILE}")
 
-# Clean up token file on exit
-trap 'rm -f "${TOKEN_FILE}"' EXIT
+# Clean up token file on exit or termination signals
+trap 'rm -f "${TOKEN_FILE}"' EXIT INT TERM
 
 # Run cloudflared with token file
 exec cloudflared tunnel --no-autoupdate run --token-file "${TOKEN_FILE}"
