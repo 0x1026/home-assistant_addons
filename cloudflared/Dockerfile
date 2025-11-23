@@ -5,13 +5,22 @@ FROM $BUILD_FROM
 # Install cloudflared
 ARG BUILD_ARCH
 RUN \
-    case "${BUILD_ARCH}" in \
-        amd64) ARCH="amd64" ;; \
-        aarch64) ARCH="arm64" ;; \
+    apk add --no-cache dpkg \
+    && case "${BUILD_ARCH}" in \
+        amd64) \
+            curl -sSLf -o cloudflared.deb \
+                "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb" \
+            ;; \
+        aarch64) \
+            curl -sSLf -o cloudflared.deb \
+                "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb" \
+            ;; \
     esac \
-    && curl -sSLf -o /usr/local/bin/cloudflared \
-        "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}" \
+    && dpkg -x cloudflared.deb /tmp/cloudflared \
+    && mv /tmp/cloudflared/usr/bin/cloudflared /usr/local/bin/cloudflared \
     && chmod +x /usr/local/bin/cloudflared \
+    && rm -rf cloudflared.deb /tmp/cloudflared \
+    && apk del dpkg \
     && /usr/local/bin/cloudflared --version
 
 # Copy root filesystem
